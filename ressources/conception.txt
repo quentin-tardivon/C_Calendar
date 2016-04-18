@@ -5,4 +5,3 @@ la sauvegarde de l’agenda sur un support permanent (fichiers)
 Un évènement est défini avec un début et une fin, sauvegarder dans un tableau pendant l'instance de l'application puis sauvegarder en dur dans un fichier.
 
 On peut utiliser le format icalendar, qui est un fichier texte formaté ou alors un csv. cf : https://support.google.com/calendar/answer/37118?hl=fr&ref_topic=3417927
-
