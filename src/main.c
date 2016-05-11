@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../headers/agenda.h"
+#include "../headers/event.h"
 
 int main() {
   printf("Bienvenue dans la gestion de calendrier!\n");
