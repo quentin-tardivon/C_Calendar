@@ -5,6 +5,7 @@ struct Event {
   char description[140];
   int begin;
   int end;
+  int id;
 };
 
-Event createEvent(char name[],char description[], int begin, int end);
+Event createEvent(char name[40],char description[140], int begin, int end);
