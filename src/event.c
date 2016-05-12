@@ -3,24 +3,26 @@
 #include <string.h>
 #include "../headers/event.h"
 
-Event createEvent(char name[40],char description[140], char* begin, char* end) {
+Event createEvent() {
   Event newEvent;
-  strcpy(newEvent.begin,begin);
-  strcpy(newEvent.end,end);
-  strcpy(newEvent.name,name);
-  strcpy(newEvent.description,description);
+  newEvent.begin = malloc(sizeof(char)*16);
+  newEvent.end = malloc(sizeof(char)*16);
+  newEvent.name = malloc(sizeof(char)*40);
+  newEvent.description = malloc(sizeof(char)*140);
   return newEvent;
 }
 
 char* convertDate(char* year,char* day, char* month, char* hours) { //23/01/1995 13:23
-  char* result = "";
+  char* result = malloc(sizeof(char)*16);
   strcat(result, year);
   strcat(result, month);
   strcat(result, day);
   strcat(result, "T");
-  strcat(result, &hours[0]);
-  strcat(result, &hours[1]);
-  strcat(result, &hours[3]);
-  strcat(result, &hours[4]);
+  sprintf(result, "%s%c",result,hours[0]);
+  sprintf(result, "%s%c",result,hours[1]);
+  sprintf(result, "%s%c",result,hours[3]);
+  sprintf(result, "%s%c",result,hours[4]);
+  strcat(result,"00");
+  strcat(result, "Z");
   return result;
 }

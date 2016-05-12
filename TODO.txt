@@ -1,0 +1,4 @@
+TODO: Gérer les espaces dans les noms et description
+      Gérer les heures d'été et d'hiver grace à UTC
+      Faire les tests pour demander de bien rentrer au bon Format
+      

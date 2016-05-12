@@ -1,13 +1,16 @@
-all: testEvent
+all: main
 
-testEvent: event.o testEvent.o
-	gcc -o ./outputs/testEvent ./outputs/testEvent.o ./outputs/event.o
+main: main.o
+	gcc -o ./outputs/main ./outputs/main.o
 
-testEvent.o: event.o
-	gcc -I headers -o ./outputs/testEvent.o -c ./test/testEvent.c -Wall
+main.o: agenda.o
+	gcc -I headers -o ./outputs/main.o -c ./src/main.c -Wall -Wextra -g
+
+agenda.o: event.o
+	gcc -I headers -o ./outputs/agenda.o -c ./src/agenda.c -Wall -Wextra -g
 
 event.o:
-	gcc -I headers -o ./outputs/event.o -c ./src/event.c -Wall
+	gcc -I headers -o ./outputs/event.o -c ./src/event.c -Wall -Wextra -g
 
 clean:
 	rm -rf ./outputs/*.o
