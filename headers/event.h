@@ -17,4 +17,4 @@ struct Event {
 
 Event createEvent();
 
-char* convertDate(char* year,char* day, char* month, char* hours);
+char* convertDate(char* date);

@@ -1,4 +1,4 @@
-TODO: Gérer les espaces dans les noms et description
+TODO: Gérer les espaces dans les noms et description : https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
       Gérer les heures d'été et d'hiver grace à UTC
+      https://openclassrooms.com/courses/time-h-et-ses-fonctions
       Faire les tests pour demander de bien rentrer au bon Format
-      
