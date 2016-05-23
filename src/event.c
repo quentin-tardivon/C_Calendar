@@ -13,6 +13,13 @@ Event createEvent() {
   return newEvent;
 }
 
+void freeEvent(Event event) {
+  free(event.begin);
+  free(event.description);
+  free(event.end);
+  free(event.name);
+}
+
 char* convertDate(char* date) { //Jjj Mmm jm hh:mm:ss aaaa
   char* result = NULL;
   result = malloc(sizeof(char)*16);

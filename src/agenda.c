@@ -19,8 +19,18 @@ Agenda addEvent(Agenda agenda,Event event) {
   return agenda;
 }
 
+void deleteEvent(Agenda agenda,char* nameEvent) {
+  for (size_t i = 0; i < agenda.nbEvenement; i++) {
+    if (strcmp(agenda.tab_event[i].name,nameEvent) == 0) {
+      freeEvent(agenda.tab_event[i]);
+      printf("Evènement supprimé\n");
+    }
+  }
+}
+
 void deleteAgenda(Agenda agenda) {
   free(agenda.tab_event);
+  free(agenda.name);
 }
 
 

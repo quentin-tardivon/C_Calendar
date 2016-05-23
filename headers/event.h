@@ -17,4 +17,6 @@ struct Event {
 
 Event createEvent();
 
+void freeEvent(Event event);
+
 char* convertDate(char* date);

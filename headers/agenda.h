@@ -20,3 +20,5 @@ Agenda addEvent(Agenda agenda, Event event);
 void deleteAgenda(Agenda agenda);
 
 int export(Agenda agenda, char* filename);
+
+void deleteEvent(Agenda agenda, char* nameEvent);

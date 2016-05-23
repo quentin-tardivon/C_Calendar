@@ -1,4 +1,6 @@
-TODO: Gérer les espaces dans les noms et description : https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
-      Gérer les heures d'été et d'hiver grace à UTC
-      https://openclassrooms.com/courses/time-h-et-ses-fonctions
-      Faire les tests pour demander de bien rentrer au bon Format
+TODO:Faire les tests pour demander de bien rentrer au bon Format
+     Ajouter la fonction delete au main
+     Si plusieurs évènement d'un même nom, proposer d'entrer la date
+     création d'évènement annuelle
+     ajout de propriété d'évènement
+     importer d'évènement
