@@ -3,6 +3,26 @@
 #include "agenda.c"
 #include "event.c"
 
+static void purger(void)
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+    {}
+}
+
+static void clean (char *chaine)
+{
+    char *p = strchr(chaine, '\n');
+    if (p)
+    {
+        *p = 0;
+    }
+    else
+    {
+        purger();
+    }
+}
+
 int main() {
 
   int ext = 0;
@@ -10,14 +30,14 @@ int main() {
   printf("Bienvenue dans la gestion de calendrier!\n");
   while (ext == 0) {
     char answer;
-    printf("Voulez vous créer ou supprimer un évènement?\n(c pour créer/d pour supprimer/q pour quitter)\n");
+    printf("Voulez-vous créer un nouvel évènement?\ny/n\n");
     fgets(&answer, sizeof(&answer),stdin);
     clean(&answer);
     //scanf("%c",&answer);
-    if (answer == 'q') {
+    if (answer == 'n') {
       ext = 1;
     }
-    else if (answer == 'c') {
+    else if (answer == 'y') {
       Event newEvent = createEvent();
       int yd = 0;
       int md = 0;
@@ -44,16 +64,13 @@ int main() {
 
 
       printf("Quel est le nom de votre évènement?\n");
-      fgets(newEvent.name, sizeof(char)*40, stdin);
+      fgets(newEvent.name, sizeof(newEvent.name), stdin);
       clean(newEvent.name);
       //scanf("%s",newEvent.name);
       printf("Quel est la description de votre évènement?\n");
-      fgets(newEvent.description,sizeof(char)*140, stdin);
+      fgets(newEvent.description,sizeof(newEvent.description), stdin);
       clean(newEvent.description);
       //scanf("%s",newEvent.description);
-      printf("Quel est le lieu de votre évènement?\n");
-      fgets(newEvent.location,sizeof(char)*100, stdin);
-      clean(newEvent.location);
       int correct_date = 0;
       while (correct_date == 0) {
 
@@ -116,30 +133,6 @@ int main() {
       date2 = asctime(&date_end);
       newEvent.end = convertDate(date2);
       agenda1 = addEvent(agenda1, newEvent);
-      printf("Cet évènement est-il annuel?\n(y/n)\n");
-      char answer2;
-      scanf("%c",&answer2);
-      if (answer2 == 'y') { //Ici, ça ne marche pas!
-        printf("Création annuelle\n");
-        int i;
-        for (i = 0; i < 100; i++) {
-          date_begin.tm_year = date_begin.tm_year+1;
-          date_end.tm_year = date_end.tm_year+1;
-          date = asctime(&date_begin);
-          newEvent.begin = convertDate(date);
-          date2 = asctime(&date_end);
-          newEvent.end = convertDate(date2);
-          agenda1 = addEvent(agenda1, newEvent);
-
-        }
-      }
-    }
-    else if (answer == 'd') {
-      printf("Veuillez entrer le nom de l'évènement\n");
-      char* name = malloc(sizeof(char)*40);
-      fgets(name, sizeof(char)*40, stdin);
-      clean(name);
-      deleteEvent(agenda1, name);
     }
     else {
       return 1;

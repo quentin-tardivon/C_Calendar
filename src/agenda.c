@@ -3,6 +3,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
+void purger(void)
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+    {}
+}
+
+void clean (char *chaine)
+{
+    char *p = strchr(chaine, '\n');
+    if (p)
+    {
+        *p = 0;
+    }
+    else
+    {
+        purger();
+    }
+}
 
 Agenda createAgenda(char *name) {
   Agenda newAgenda;
@@ -20,11 +41,83 @@ Agenda addEvent(Agenda agenda,Event event) {
 }
 
 void deleteEvent(Agenda agenda,char* nameEvent) {
-  for (size_t i = 0; i < agenda.nbEvenement; i++) {
+  int i = 0;
+  int compt = 0;
+  int* indice = malloc(sizeof(agenda.tab_event));
+  char ans;
+  for (i = 0; i < agenda.nbEvenement; i++) {
     if (strcmp(agenda.tab_event[i].name,nameEvent) == 0) {
-      freeEvent(agenda.tab_event[i]);
-      printf("Evènement supprimé\n");
+      indice[compt] = i;
+      compt +=1;
     }
+  }
+  if (compt>1) {
+    printf("Il y a plus d'un évènement avec ce nom\nVoulez-vous tous les supprimer? (y/n)");
+    fgets(&ans, sizeof(&ans),stdin);
+    clean(&ans);
+    if (ans == 'y') {
+      int j = 0;
+      for (j = 0; j < compt; j++) {
+        freeEvent(agenda.tab_event[indice[j]]);
+        agenda.tab_event[indice[j]].begin = 0;
+      }
+      printf("Il y a eu %d évènements supprimés\n",compt);
+    }
+    else if (ans == 'n') {
+      int yd = 0;
+      int md = 0;
+      int dd = 0;
+      int h = 0;
+      int m = 0;
+      struct tm date_begin;
+      time_t secondes;
+      struct tm instant;
+      time(&secondes);
+      char* date = NULL;
+      date = malloc(sizeof(char)*30);
+      instant = *localtime(&secondes);
+      date_begin = instant;
+      char* date_delete = malloc(sizeof(char)*16);
+
+      printf("Quel est la date de début? (Format JJ/MM/AAAA)\n");
+      scanf("%d/%d/%d",&dd,&md,&yd);
+      date_begin.tm_year = yd - 1900;
+      date_begin.tm_mon = md -1;
+      date_begin.tm_mday = dd;
+      printf("Heure de début de l'évènement? (Format HH:MM)\n");
+      scanf("%d:%d",&h,&m);
+      date_begin.tm_hour = h;
+      date_begin.tm_min = m;
+
+
+      if (date_begin.tm_isdst == 1) {
+        date_begin.tm_hour = h-2 ;
+      }
+      else {
+        date_begin.tm_hour = h-1;
+      }
+      date = asctime(&date_begin);
+      date_delete = convertDate(date);
+      int j;
+      for (j = 0; j < compt; j++) {
+        if (strcmp(agenda.tab_event[indice[j]].name,nameEvent) == 0 && strcmp(agenda.tab_event[indice[j]].begin, date_delete) == 0) {
+          freeEvent(agenda.tab_event[indice[j]]);
+          agenda.tab_event[indice[j]].begin = 0;
+          printf("Evènement supprimé\n");
+        }
+        else {
+          printf("Aucun évènement supprimé\n");
+        }
+      }
+    }
+  }
+  else if (compt == 1) {
+    freeEvent(agenda.tab_event[indice[0]]);
+    agenda.tab_event[indice[0]].begin = 0;
+    printf("Evènement supprimé\n");
+  }
+  else {
+    printf("Aucun évènement supprimé\n");
   }
 }
 
@@ -46,12 +139,15 @@ int export(Agenda agenda, char* filename) {
   }
   int i;
   for (i = 0; i < agenda.nbEvenement; i++) {
-    fputs("BEGIN:VEVENT\n", file);
-    fprintf(file,"DTSTART:%s\n",agenda.tab_event[i].begin);
-    fprintf(file, "DTEND:%s\n",agenda.tab_event[i].end);
-    fprintf(file, "SUMMARY:%s\n",agenda.tab_event[i].name);
-    fprintf(file, "DESCRIPTION:%s\n",agenda.tab_event[i].description);
-    fputs("END:VEVENT\n", file);
+    if (agenda.tab_event[i].begin != 0) {
+      fputs("BEGIN:VEVENT\n", file);
+      fprintf(file,"DTSTART:%s\n",agenda.tab_event[i].begin);
+      fprintf(file, "DTEND:%s\n",agenda.tab_event[i].end);
+      fprintf(file, "SUMMARY:%s\n",agenda.tab_event[i].name);
+      fprintf(file, "DESCRIPTION:%s\n",agenda.tab_event[i].description);
+      fprintf(file, "LOCATION:%s\n",agenda.tab_event[i].location);
+      fputs("END:VEVENT\n", file);
+    }
   }
   fputs("END:VCALENDAR", file);
   fclose(file);

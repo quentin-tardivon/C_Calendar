@@ -10,12 +10,14 @@ Event createEvent() {
   newEvent.end = malloc(sizeof(char)*16);
   newEvent.name = malloc(sizeof(char)*40);
   newEvent.description = malloc(sizeof(char)*140);
+  newEvent.location = malloc(sizeof(char)*100);
   return newEvent;
 }
 
 void freeEvent(Event event) {
   free(event.begin);
   free(event.description);
+  free(event.location);
   free(event.end);
   free(event.name);
 }

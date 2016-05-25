@@ -8,6 +8,7 @@ typedef struct Event Event;
 struct Event {
   char* name;
   char* description;
+  char* location;
   char* begin;
   char* end;
 };
