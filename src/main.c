@@ -84,9 +84,6 @@ int main() {
       date = asctime(&date_begin);
       newEvent.begin = convertDate(date);
 
-
-
-
       int correct_date2 = 0;
       while (correct_date2 == 0) {
 
@@ -116,11 +113,11 @@ int main() {
       date2 = asctime(&date_end);
       newEvent.end = convertDate(date2);
       agenda1 = addEvent(agenda1, newEvent);
+      purger();
       printf("Cet évènement est-il annuel?\n(y/n)\n");
-      char answer2;
+      char answer2 = 0;
       scanf("%c",&answer2);
       if (answer2 == 'y') { //Ici, ça ne marche pas!
-        printf("Création annuelle\n");
         int i;
         for (i = 0; i < 100; i++) {
           date_begin.tm_year = date_begin.tm_year+1;
@@ -130,7 +127,6 @@ int main() {
           date2 = asctime(&date_end);
           newEvent.end = convertDate(date2);
           agenda1 = addEvent(agenda1, newEvent);
-
         }
       }
     }
