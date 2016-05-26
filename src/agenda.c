@@ -1,29 +1,9 @@
-#include "../headers/event.h"
 #include "../headers/agenda.h"
+#include "../headers/function.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-void purger(void)
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-    {}
-}
-
-void clean (char *chaine)
-{
-    char *p = strchr(chaine, '\n');
-    if (p)
-    {
-        *p = 0;
-    }
-    else
-    {
-        purger();
-    }
-}
 
 Agenda createAgenda(char *name) {
   Agenda newAgenda;
@@ -80,11 +60,13 @@ void deleteEvent(Agenda agenda,char* nameEvent) {
       char* date_delete = malloc(sizeof(char)*16);
 
       printf("Quel est la date de début? (Format JJ/MM/AAAA)\n");
+      purge();
       scanf("%d/%d/%d",&dd,&md,&yd);
       date_begin.tm_year = yd - 1900;
       date_begin.tm_mon = md -1;
       date_begin.tm_mday = dd;
       printf("Heure de début de l'évènement? (Format HH:MM)\n");
+      purge();
       scanf("%d:%d",&h,&m);
       date_begin.tm_hour = h;
       date_begin.tm_min = m;
