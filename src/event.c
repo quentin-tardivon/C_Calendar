@@ -4,6 +4,7 @@
 #include "../headers/event.h"
 #include <time.h>
 
+//Permet la création d'un évènement
 Event createEvent() {
   Event newEvent;
   newEvent.begin = malloc(sizeof(char)*16);
@@ -14,6 +15,7 @@ Event createEvent() {
   return newEvent;
 }
 
+//Libère l'espace mémoire d'un évènement
 void freeEvent(Event event) {
   free(event.begin);
   free(event.description);
@@ -22,6 +24,7 @@ void freeEvent(Event event) {
   free(event.name);
 }
 
+//Convertit une date au format de date ICalendar
 char* convertDate(char* date) { //Jjj Mmm jm hh:mm:ss aaaa
   char* result = NULL;
   result = malloc(sizeof(char)*16);

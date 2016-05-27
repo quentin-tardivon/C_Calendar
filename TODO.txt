@@ -1,6 +1,0 @@
-TODO:Faire les tests pour demander de bien rentrer au bon Format
-     Ajouter la fonction delete au main
-     Si plusieurs évènement d'un même nom, proposer d'entrer la date
-     création d'évènement annuelle
-     ajout de propriété d'évènement
-     importer d'évènement

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "../headers/function.h"
 
+//Permet la création d'un évènement dans un agenda
 Agenda eventCreation(Agenda agenda) {
   Event newEvent = createEvent();
   int yd = 0;
@@ -121,6 +122,7 @@ Agenda eventCreation(Agenda agenda) {
   return agenda;
 }
 
+//Permet la suppression d'un évènement dans un agenda
 Agenda eventDelete(Agenda agenda) {
   printf("Veuillez entrer le nom de l'évènement\n");
   char* name = malloc(sizeof(char)*40);
@@ -130,6 +132,7 @@ Agenda eventDelete(Agenda agenda) {
   return agenda;
 }
 
+//Permet d'importer un ensemble d'évènement dans un agenda
 Agenda import(Agenda agenda, char* name_file) {
   FILE* fichier = NULL;
   fichier = fopen(name_file, "r");
@@ -174,12 +177,14 @@ Agenda import(Agenda agenda, char* name_file) {
   }
 }
 
+//Permet de vider le buffer après un scanf
 void purge(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF)
     {}
 }
 
+//Permet de vider le buffer après un fgets
 void clean (char *chaine) {
     char *p = strchr(chaine, '\n');
     if (p)

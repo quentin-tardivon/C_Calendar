@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 
+//Permet la création d'un agenda
 Agenda createAgenda(char *name) {
   Agenda newAgenda;
   newAgenda.name = name;
@@ -13,6 +14,7 @@ Agenda createAgenda(char *name) {
   return newAgenda;
 }
 
+//Permet l'ajout d'un évènement à un agenda
 Agenda addEvent(Agenda agenda,Event event) {
   agenda.nbEvenement = agenda.nbEvenement + 1;
   agenda.tab_event = realloc(agenda.tab_event, agenda.nbEvenement * sizeof(Event));
@@ -20,6 +22,7 @@ Agenda addEvent(Agenda agenda,Event event) {
   return agenda;
 }
 
+//Permet la suprression d'un évènement dans un agenda
 void deleteEvent(Agenda agenda,char* nameEvent) {
   int i = 0;
   int compt = 0;
@@ -103,12 +106,13 @@ void deleteEvent(Agenda agenda,char* nameEvent) {
   }
 }
 
+//Permet la suppression d'un agenda
 void deleteAgenda(Agenda agenda) {
   free(agenda.tab_event);
   free(agenda.name);
 }
 
-
+//Exporte un agenda au format ICalendar
 int export(Agenda agenda, char* filename) {
   FILE* file = NULL;
   file = fopen(filename,"w+");

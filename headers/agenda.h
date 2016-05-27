@@ -22,7 +22,3 @@ void deleteAgenda(Agenda agenda);
 int export(Agenda agenda, char* filename);
 
 void deleteEvent(Agenda agenda, char* nameEvent);
-
-void clean (char *chaine);
-
-void purger(void);
